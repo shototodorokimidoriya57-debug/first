@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timeline - American Period</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --paper:#000000;
+      --ink:#ffffff;
+      --line:#000000;
+      --accent:#8b1a1a
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      background:var(--paper);
+      color:var(--ink);
+      font-family:'Inter',sans-serif;
+      background-image: url('exhibit/bgd.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      overflow-x:hidden;
+    }
+    nav{
+      border-bottom:1px solid var(--line);
+      padding:18px 30px;
+      display:flex;
+      justify-content:space-between;
+      position:sticky;
+      top:0;
+      background:var(--paper);
+      z-index:20
+    }
+    nav a{
+      text-decoration:none;
+      color:var(--ink);
+      font-size:12px;
+      letter-spacing:2px;
+      margin-left:24px;
+      text-transform:uppercase
+    }
+   .header{
+      text-align:center;
+      padding:50px 30px 10px;
+    }
+   .header h1{
+      font-family:'Playfair Display';
+      font-size:42px;
+      line-height:1.1;
+    }
+   .header p{
+      color:#6b6b6b;
+      margin-top:12px;
+      font-size:14px;
+    }
+   .hint{
+      margin-top:16px;
+      font-size:11px;
+      letter-spacing:1.5px;
+      color:var(--accent);
+      text-transform:uppercase;
+    }
+
+    /* HORIZONTAL MUSEUM */
+   .gallery{
+      display:flex;
+      overflow-x:auto;
+      overflow-y:hidden;
+      scroll-snap-type:x mandatory;
+      align-items:center;
+      height:78vh;
+      padding:0 35vw;
+      gap:4vw;
+      scrollbar-width:none;
+    }
+   .gallery::-webkit-scrollbar{display:none}
+
+   .slide{
+      scroll-snap-align:center;
+      flex:0 0 52vw;
+      max-width:620px;
+      min-width:340px;
+      background:#331e0c;
+      padding:22px;
+      box-shadow:0 20px 60px rgba(0,0,0,0.12);
+      transition: all 0.6s cubic-bezier(0.23,1,0.32,1);
+      transform: perspective(1200px) rotateY(25deg) scale(0.82);
+      opacity:0.4;
+    }
+   .slide.active{
+      transform: perspective(1200px) rotateY(0deg) scale(1);
+      opacity:1;
+      z-index:2;
+    }
+   .slide.left{ transform: perspective(1200px) rotateY(25deg) scale(0.82); }
+   .slide.right{ transform: perspective(1200px) rotateY(-25deg) scale(0.82); }
+
+   .top{
+      display:grid;
+      grid-template-columns:90px 1fr;
+      gap:16px;
+      margin-bottom:14px;
+    }
+   .year{
+      font-family:'Playfair Display';
+      font-size:30px;
+      line-height:1;
+      color:#ffffff;
+    }
+   .year small{
+      display:block;
+      font-family:'Inter';
+      font-size:10px;
+      letter-spacing:2.5px;
+      color:var(--accent);s
+      margin-top:10px;
+      font-weight:600;
+    }
+   .slide h3{
+      font-size:16px;
+      margin-bottom:6px;
+      color:#ffffff;
+    }
+   .slide p{
+      font-size:12.5px;
+      color:#918e8e;
+      line-height:1.6;
+    }
+   .slide img{
+      width:100%;
+      height:360px;
+      object-fit:cover;
+      display:block;
+      background:#e8e0d0;
+    }
+
+   .controls{
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      padding:20px 0 10px;
+    }
+   .controls button{
+      border:1px solid var(--ink);
+      background:#fff;
+      padding:10px 18px;
+      font-size:11px;
+      letter-spacing:1.5px;
+      text-transform:uppercase;
+      cursor:pointer;
+    }
+   .dots{
+      display:flex;
+      justify-content:center;
+      gap:6px;
+      padding-bottom:40px;
+    }
+   .dot{
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:var(--line);
+      transition:0.3s;
+    }
+   .dot.active{
+      background:var(--accent);
+      width:18px;
+      border-radius:3px;
+    }
+
+    @media(max-width:700px){
+     .slide{flex:0 0 85vw}
+     .gallery{padding:0 7vw}
+     .header h1{font-size:28px}
+     .slide img{height:300px}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <strong style="font-family:'Playfair Display';font-size:14px">1898 — 1946</strong>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="artifacts.html">Artifacts</a>
+    <a href="timeline.html" style="font-weight:600">Timeline</a>
+  </div>
+</nav>
+
+<div class="header">
+  <h1>TIMELINE OF AMERICAN COLONIZATION IN THE PHILIPPINES</h1>
+</div>
+
+<div class="gallery" id="gallery">
+
+  <div class="slide active">
+    <div class="top">
+      <div class="year">1898<small>TREATY</small></div>
+      <div><h3>Treaty of Paris & Start of American Rule</h3><p>Spain cedes the Philippines to the United States for $20M under the Treaty of Paris following the Battle of Manila Bay. This marks the beginning of official American rule and the controversial 'benevolent assimilation' policy.</p></div>
+    </div>
+    <img src="exhibit/treaty.jpg">
+  </div>
+
+  <div class="slide">
+    <div class="top">
+      <div class="year">1899<small>WAR</small></div>
+      <div><h3>Outbreak of the Philippine-American War</h3><p>Armed conflict erupts between United States forces and the First Philippine Republic led by Emilio Aguinaldo in San Juan, Manila. The conflict arises from the rejection of Filipino sovereignty by U.S. forces.</p></div>
+    </div>
+    <img src="exhibit/outbreak.jpg">
+  </div>
+
+  <div class="slide">
+    <div class="top">
+      <div class="year">1901<small>GOVERNMENT</small></div>
+      <div><h3>Capture of Aguinaldo & Civil Rule Setup</h3><p>General Emilio Aguinaldo is captured in Palanan, Isabela. Shortly after, the United States establishes a civilian government, with William Howard Taft sworn in as the first civil governor of the islands.</p></div>
+    </div>
+    <img src="exhibit/capture.jpg">
+  </div>
+
+  <div class="slide">
+    <div class="top">
+      <div class="year">1902<small>LEGISLATION</small></div>
+      <div><h3>The Philippine Organic Act (Philippine Bill)</h3><p>U.S. Congress passes the Philippine Bill of 1902, which provides for a bicameral setup and authorizes the creation of a fully elected lower house assembly once peace is established across the country.</p></div>
+    </div>
+    <img src="exhibit/1902.png">
+  </div>
+
+  <div class="slide">
+    <div class="top">
+      <div class="year">1907<small>ASSEMBLY</small></div>
+      <div><h3>Inauguration of the Philippine Assembly</h3><p>The first national legislative assembly elected completely by Filipinos is formally convened, marking the first major structural step toward home-rule and legislative self-governance.</p></div>
+    </div>
+    <img src="exhibit/1907.jpg">
+  </div>
+
+  <div class="slide">
+    <div class="top">
+      <div class="year">1916<small>AUTONOMY</small></div>
+      <div><h3>The Jones Law & All-Filipino Legislature</h3><p>The Philippine Autonomy Act replaces the Organic Act, explicitly promising eventual national independence as soon as a stable government can be verified, and replacing the commission layout with a full democratic senate.</p></div>
+    </div>
+    <img src="exhibit/jones.png">
+  </div>
+
+  <div class="slide">
+    <div class="top">
+      <div class="year">1934<small>TRANSITION</small></div>
+      <div><h3>The Tydings-McDuffie Independence Act</h3><p>U.S. Congress establishes a definitive 10-year transition roadmap toward full sovereign nationhood. The framework authorizes the framing of a national constitution and a transitional regional commonwealth government.</p></div>
+    </div>
+    <img src="exhibit/duffie.webp">
+  </div>
+
+  <div class="slide">
+    <div class="top">
+      <div class="year">1935<small>COMMONWEALTH</small></div>
+      <div><h3>Inauguration of the Commonwealth Government</h3><p>The Commonwealth of the Philippines is officially proclaimed. Manuel L. Quezon is inaugurated as national President, signaling autonomous internal administration under structural American protection.</p></div>
+    </div>
+    <img src="exhibit/oath.jpg">
+  </div>
+
+  <div class="slide">
+    <div class="top">
+      <div class="year">1941<small>OCCUPATION</small></div>
+      <div><h3>WWII & Japanese Military Occupation</h3><p>Imperial Japanese forces invade the archipelago immediately following Pearl Harbor. The Commonwealth government goes into foreign exile while local underground guerilla and joint military defense campaigns carry out extensive resistance.</p></div>
+    </div>
+    <img src="exhibit/japanese.jpg">
+  </div>
+
+  <div class="slide">
+    <div class="top">
+      <div class="year">1945<small>LIBERATION</small></div>
+      <div><h3>Allied Forces Return & National Liberation</h3><p>Combined American and Filipino military forces complete a massive counter-offensive to liberate the islands from axis occupation, restoring the civil authority of the Philippine Commonwealth in Manila.</p></div>
+    </div>
+    <img src="exhibit/liberate.jpg">
+  </div>
+
+  <div class="slide">
+    <div class="top">
+      <div class="year">1946<small>SOVEREIGNTY</small></div>
+      <div><h3>Declaration of Philippine Independence</h3><p>The United States withdraws all colonial sovereignty over the islands. The Republic of the Philippines is inaugurated as a fully independent, sovereign country, fulfilling the timeline set by the Tydings-McDuffie roadmap.</p></div>
+    </div>
+    <img src="exhibit/independence.jpg">
+  </div>
+
+</div>
+
+<div class="dots" id="dots"></div>
+
+<script>
+const gallery = document.getElementById('gallery');
+const slides = [...document.querySelectorAll('.slide')];
+const dots = document.getElementById('dots');
+let current = 0;
+
+slides.forEach((_,i)=>{
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' active':'');
+  d.onclick=()=>goTo(i);
+  dots.appendChild(d);
+});
+
+function update(){
+  const center = gallery.scrollLeft + gallery.clientWidth/2;
+  let closest=0, min=Infinity;
+  slides.forEach((s,i)=>{
+    const c = s.offsetLeft + s.offsetWidth/2;
+    const dist = Math.abs(center-c);
+    if(dist<min){min=dist; closest=i}
+  });
+  current=closest;
+  slides.forEach((s,i)=>{
+    s.classList.remove('active','left','right');
+    if(i===current) s.classList.add('active');
+    else if(i<current) s.classList.add('left');
+    else s.classList.add('right');
+    dots.children[i].classList.toggle('active', i===current);
+  });
+}
+function goTo(i){ slides[i].scrollIntoView({behavior:'smooth', inline:'center'}); }
+function move(d){
+  let n=current+d;
+  if(n<0) n=0;
+  if(n>=slides.length) n=slides.length-1;
+  goTo(n);
+}
+gallery.addEventListener('scroll', ()=>requestAnimationFrame(update));
+window.addEventListener('resize', update);
+update();
+</script>
+
+</body>
+</html>

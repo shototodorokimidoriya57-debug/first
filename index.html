@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The American Period in the Philippines.</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --paper: #000000;
+      --ink: #ffffff;
+      --line: #000000;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      background-image:
+        url('exhibit/bgd.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    nav {
+      border-bottom: 1px solid var(--line);
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: var(--paper);
+      z-index: 10;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 12px;
+      letter-spacing: 2px;
+      margin-left: 24px;
+      text-transform: uppercase;
+    }
+
+    /* HERO - CENTERED STACKED */
+   .hero {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 30px 30px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+
+    /* VIRTUAL EXHIBITION - UPPER LEFT */
+   .tag {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 8px 14px;
+      font-size: 10px;
+      letter-spacing: 2px;
+      display: inline-block;
+    
+    }
+
+    h1 {
+      font-family: 'Playfair Display';
+      font-size: 58px;
+      line-height: 1.05;
+      margin-bottom: 30px;
+      margin-top: 20px;
+    }
+
+   .frame {
+      background: #331e0c;
+      padding: 14px;
+      margin-bottom: 28px;
+      max-width: 480px;
+      width: 100%;
+    }
+
+   .card {
+      background: #581212;
+      padding: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    }
+
+   .card img {
+      width: 100%;
+      height: 370px;
+      object-fit: cover;
+      display: block;
+    }
+
+   .card small {
+      display: block;
+      margin-top: 10px;
+      color: #6b6b6b;
+      font-size: 11px;
+      text-align: left;
+      line-height: 1.4;
+    }
+
+   .desc {
+      color: #b3acac;
+      font-size: 15px;
+      line-height: 1.6;
+      max-width: 580px;
+      margin-bottom: 28px;
+    }
+
+   .btn {
+      border: 1px solid var(--ink);
+      padding: 12px 24px;
+      background: transparent;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+   .btn:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    @media (max-width: 900px) {
+     .tag {
+        position: static;
+        margin-bottom: 16px;
+        align-self: flex-start;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+     .card img {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <strong style="font-family:'Playfair Display';font-size:14px">
+      1898 — 1946
+    </strong>
+    <div>
+      <a href="try.html" style="font-weight:600">Home</a>
+      <a href="artifacts.html">Artifacts</a>
+      <a href="timeline.html">Timeline</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+
+    <div class="tag">VIRTUAL EXHIBITION</div>
+
+    <h1>
+      The American Period in the<br>
+      Philippines
+    </h1>
+
+    <div class="frame">
+      <div class="card">
+        <img src="exhibit/xhibit.png" alt="Thomasites">
+        <small>
+          Fig. 01 — American teachers (Thomasites) arriving in Cebu, c. 1901.
+          Courtesy of Library of Congress.
+        </small>
+      </div>
+    </div>
+
+    <p class="desc">
+      Benevolent assimilation, public education, and the shaping of a nation.
+      An interactive archive of photographs, documents, and stories from 1898 to 1946.
+    </p>
+
+    <button class="btn" onclick="location.href='artifacts.html'">
+      Enter Exhibition →
+    </button>
+
+  </section>
+
+</body>
+
+</html>

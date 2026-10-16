@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artifacts - American Period</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --paper: #000000;
+      --ink: #ffffff;
+      --line: #000000;
+      --accent: #8b1a1a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      background-image:
+        url('exhibit/bgd.png');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      overflow-x: hidden;
+    }
+
+    nav {
+      border-bottom: 1px solid var(--line);
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: var(--paper);
+      z-index: 20;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 12px;
+      letter-spacing: 2px;
+      margin-left: 24px;
+      text-transform: uppercase;
+    }
+
+   .header {
+      text-align: center;
+      padding: 40px 30px 5px;
+    }
+
+   .header h1 {
+      font-family: 'Playfair Display';
+      font-size: 42px;
+    }
+
+   .header p {
+      color: #6b6b6b;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    /* OVAL FILTER BUTTONS - BLACK OUTLINE ACTIVE */
+   .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin: 0px 0 8px;
+    }
+
+   .filter-btn {
+      border: 2px solid transparent;
+      background: transparent;
+      padding: 7px 18px;
+      font-family: 'Playfair Display';
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 999px;
+      transition: all 0.2s;
+      color: #6b6b6b;
+    }
+
+   .filter-btn.active {
+      border: 3px solid #000;
+      background: #fff;
+      color: #000000;
+      border-radius: 12px;
+    }
+
+   .hint {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-top: 10spx;
+    }
+
+    /* 3D HORIZONTAL GALLERY */
+   .gallery {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      align-items: center;
+      height: 74vh;
+      padding: 0 35vw;
+      gap: 4vw;
+      scrollbar-width: none;
+    }
+
+   .gallery::-webkit-scrollbar {
+      display: none;
+    }
+
+   .slide {
+      scroll-snap-align: center;
+      flex: 0 0 52vw;
+      max-width: 620px;
+      min-width: 340px;
+      background: #331e0c;
+      padding: 20px;
+      box-shadow: 0 20px 60px rgba(255, 255, 255, 0.12);
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      transform: perspective(1200px) rotateY(25deg) scale(0.82);
+      opacity: 0.35;
+      display: none;
+    }
+
+   .slide.show {
+      display: block;
+    }
+
+   .slide.active {
+      transform: perspective(1200px) rotateY(0deg) scale(1);
+      opacity: 1;
+      z-index: 2;
+    }
+
+   .slide.left {
+      transform: perspective(1200px) rotateY(25deg) scale(0.82);
+    }
+
+   .slide.right {
+      transform: perspective(1200px) rotateY(-25deg) scale(0.82);
+    }
+
+   .slide img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      display: block;
+      background: #e8e0d0;
+    }
+
+   .img-box {
+      width: 100%;
+      height: 360px;
+      background: #e8e0d0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #8a857a;
+      text-align: center;
+      padding: 12px;
+      line-height: 1.4;
+    }
+
+   .info {
+      margin-top: 12px;
+    }
+
+   .info h3 {
+      font-size: 15px;
+      margin-bottom: 4px;
+      color: #000000;
+    }
+
+   .info p {
+      font-size: 12px;
+      color: #6b6b6b;
+      line-height: 1.5;
+    }
+
+   .tag {
+      font-size: 9px;
+      letter-spacing: 1px;
+      background: var(--line);
+      padding: 4px 8px;
+      display: inline-block;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+   .dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      padding-bottom: 30px;
+      padding-top: 12px;
+    }
+
+   .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--line);
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+   .dot.active {
+      background: var(--accent);
+      width: 18px;
+      border-radius: 3px;
+    }
+
+    @media (max-width: 700px) {
+     .slide {
+        flex: 0 0 85vw;
+      }
+
+     .gallery {
+        padding: 0 7vw;
+      }
+
+     .filter-btn {
+        font-size: 15px;
+      }
+
+     .slide img,
+     .img-box {
+        height: 280px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <strong style="font-family:'Playfair Display';font-size:14px">
+      1898 — 1946
+    </strong>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="artifacts.html" style="font-weight:600">Artifacts</a>
+      <a href="timeline.html">Timeline</a>
+    </div>
+  </nav>
+
+  <div class="header">
+    <h1>ARTIFACTS</h1>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-cat="weapons">WEAPONS</button>
+      <button class="filter-btn" data-cat="arts">ARTS</button>
+      <button class="filter-btn" data-cat="architecture">ARCHITECTURE</button>
+      <button class="filter-btn" data-cat="literature">LITERATURE</button>
+      <button class="filter-btn" data-cat="social">SOCIAL HISTORY</button>
+    </div>
+  </div>
+
+  <div class="gallery" id="gallery">
+
+    <!-- ================= 1. WEAPONS ================= -->
+    <div class="slide" data-cat="weapons">
+      <img src="exhibit\weapon\krag.jpg">
+      <div class="info">
+        <span class="tag">Philippine-American War 1898-1946</span>
+        <h3>Krag-Jorgensen Rifle</h3>
+        <p>Standard US rifle during Philippine American War. Philippine American War artifacts museum.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="weapons">
+      <img src="exhibit/weapon/colt.jpg">
+      <div class="info">
+        <span class="tag">Moro Rebellion</span>
+        <h3>Colt M1911 Pistol</h3>
+        <p>Developed due to Moro Rebellion stopping power needs against juramentado.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="weapons">
+      <img src="exhibit/weapon/bolo.jpg">
+      <div class="info">
+        <span class="tag">Filipino Weapon</span>
+        <h3>Filipino Bolo Weapon</h3>
+        <p>Primary close combat weapon of Filipino revolutionaries in Philippine American War.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="weapons">
+      <img src="exhibit/weapon/moro.jpg">
+      <div class="info">
+        <span class="tag">Moro Weapon</span>
+        <h3>Kris Sword (Kalis)</h3>
+        <p>Moro juramentado history - traditional wavy blade from Mindanao and Sulu.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="weapons">
+      <img src="exhibit/weapon/springfield.jpg">
+      <div class="info">
+        <span class="tag">Constabulary</span>
+        <h3>Philippine Constabulary Weapons</h3>
+        <p>American Era police force artifacts, museum collection - maintaining peace during colonial period.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="weapons">
+      <img src="exhibit/weapon/museum.png">
+      <div class="info">
+        <span class="tag">Museum Collection</span>
+        <h3>War Artifacts Museum</h3>
+        <p>Collection of bullets, bayonets, and uniforms from 1898-1946 Philippine American War.</p>
+      </div>
+    </div>
+
+    <!-- ================= 2. ARTS ================= -->
+    <div class="slide" data-cat="arts">
+      <img src="exhibit/arts/planting.jpg">
+      <div class="info">
+        <span class="tag">American Era Philippines</span>
+        <h3>Planting Rice (1921) - Fabian de la Rosa</h3>
+        <p>Naturalism genre painting, Philippine art naturalism American colonial period.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="arts">
+      <img src="exhibit/arts/girl.png">
+      <div class="info">
+        <span class="tag">Amorsolo</span>
+        <h3>Dalagang Bukid - Fernando Amorsolo</h3>
+        <p>Iconic Filipina maiden, ideal Filipina, natural light style - American Period art Philippines.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="arts">
+      <img src="exhibit/arts/boni.jpg">
+      <div class="info">
+        <span class="tag">Sculpture</span>
+        <h3>Bonifacio Monument Caloocan</h3>
+        <p>Guillermo Tolentino - Neoclassical national sculpture, American colonial era masterpiece.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="arts">
+      <img src="exhibit/arts/american.jpg">
+      <div class="info">
+        <span class="tag">Genre Painting</span>
+        <h3>American Period Genre Painting</h3>
+        <p>Everyday life scenes of farmers, market, and barrios during American occupation.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="arts">
+      <img src="exhibit/arts/avse.png">
+      <div class="info">
+        <span class="tag">Art Debate</span>
+        <h3>Amorsolo vs Edades Art Style</h3>
+        <p>Naturalism vs Modernism - conservative vs progressive art in American colonial Philippines.</p>
+      </div>
+    </div>
+
+    <!-- ================= 3. ARCHITECTURE ================= -->
+    <div class="slide" data-cat="architecture">
+      <img src="exhibit/architecture/dniel.png">
+      <div class="info">
+        <span class="tag">1905 Urban Plan</span>
+        <h3>Daniel Burnham Plan Manila 1905</h3>
+        <p>City Beautiful movement - grand boulevards and parks for Manila, American colonial architecture Philippines neoclassical.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="architecture">
+      <img src="exhibit/architecture/william.png">
+      <div class="info">
+        <span class="tag">Insular Architect</span>
+        <h3>William Parsons - American Era Architect</h3>
+        <p>Consulting Architect of the Insular Government, designed Gabaldon schools and government buildings.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="architecture">
+      <img src="exhibit/architecture/neoclassical.png">
+      <div class="info">
+        <span class="tag">Neoclassical</span>
+        <h3>Manila Post Office & Legislative Building</h3>
+        <p>Neoclassical architecture - Juan Arellano architect, Legislative Building, Gabaldon schoolhouse American era.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="architecture">
+      <img src="exhibit/architecture/gabldon.png">
+      <div class="info">
+        <span class="tag">Gabaldon Schoolhouse</span>
+        <h3>Gabaldon Schoolhouse</h3>
+        <p>Standard American-era school design - American colonial architecture Philippines, many still standing today.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="architecture">
+      <img src="exhibit/architecture/theater.jpg">
+      <div class="info">
+        <span class="tag">Art Deco</span>
+        <h3>Metropolitan Theater Art Deco Manila</h3>
+        <p>Art Deco masterpiece of Juan Arellano - American colonial architecture Philippines.</p>
+      </div>
+    </div>
+
+    <!-- ================= 4. LITERATURE ================= -->
+    <div class="slide" data-cat="literature">
+      <img src="exhibit/literature/knb.jpg">
+      <div class="info">
+        <span class="tag">Seditious Plays</span>
+        <h3>Kahapon, Ngayon at Bukas</h3>
+        <p>Seditious plays American era Philippines - banned for promoting nationalism.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="literature">
+      <img src="exhibit/literature/abad.jpg">
+      <div class="info">
+        <span class="tag">1902 Banned Play</span>
+        <h3>Tanikalang Ginto - Juan Abad 1902</h3>
+        <p>Golden Chain - seditious drama, arrested for anti-American sentiment.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="literature">
+      <img src="exhibit/literature/modern.png">
+      <div class="info">
+        <span class="tag">First English Play</span>
+        <h3>A Modern Filipina - Lino Castillejo</h3>
+        <p>While no photos survive of the 1915 play 'A Modern Filipina', this scene from the 1919 silent film 'Dalagang Bukid' captures the exact clothing styles, hairstyles, and social atmosphere of urban Filipinos during that same decade.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="literature">
+      <img src="exhibit/literature/bodabil.jpg">
+      <div class="info">
+        <span class="tag">Entertainment</span>
+        <h3>Bodabil Vaudeville</h3>
+        <p>American period stage entertainment Philippines - music, dance, comedy from US vaudeville.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="literature">
+      <img src="exhibit/literature/teaching.jpg">
+      <div class="info">
+        <span class="tag">Education</span>
+        <h3>Thomasites English Readers</h3>
+        <p>First English textbooks used in public schools - Philippine literature American period English Tagalog.</p>
+      </div>
+    </div>
+
+    <!-- ================= 5. SOCIAL HISTORY ================= -->
+    <div class="slide" data-cat="social">
+      <img src="exhibit/social/thomasites.png">
+      <div class="info">
+        <span class="tag">1901 Education</span>
+        <h3>Thomasites American Teachers 1901</h3>
+        <p>600 American teachers aboard USAT Thomas - public education system Philippines American colonial.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="social">
+      <img src="exhibit/social/pens.jpg">
+      <div class="info">
+        <span class="tag">1903 Scholars</span>
+        <h3>Pensionado Program 1903</h3>
+        <p>Filipino scholars sent to America - future leaders educated in US universities.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="social">
+      <img src="exhibit/social/gabaldon.png">
+      <div class="info">
+        <span class="tag">Gabaldon Law</span>
+        <h3>Gabaldon Law Act 1801</h3>
+        <p>Public schools built nationwide - American Era daily life Philippines, education for all.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="social">
+      <img src="exhibit/social/jazz.png">
+      <div class="info">
+        <span class="tag">Daily Life</span>
+        <h3>Daily Life - Jazz & Fashion</h3>
+        <p>American Era daily life Philippines - jazz fashion, flapper dresses, Americana influence.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="social">
+    <img src="exhibit/social/public.jpg">
+      <div class="info">
+        <span class="tag">Education System</span>
+        <h3>Public Education System</h3>
+        <p>American colonial public education - English as medium, schools in every barrio.</p>
+      </div>
+    </div>
+
+    <div class="slide" data-cat="social">
+      <img src="exhibit/social/mnl.jpg">
+      <div class="info">
+        <span class="tag">Manila Life</span>
+        <h3>Manila Life 1920s-1930s</h3>
+        <p>Manila life 1920s 1930s Philippines American era photos - Escolta, Luneta, streetcars.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="dots" id="dots"></div>
+
+  <script>
+    const gallery = document.getElementById('gallery');
+    const allSlides = [...document.querySelectorAll('.slide')];
+    const btns = [...document.querySelectorAll('.filter-btn')];
+    const dots = document.getElementById('dots');
+
+    let visible = [];
+    let current = 0;
+
+    function showCategory(cat) {
+      visible = allSlides.filter(s => s.dataset.cat === cat);
+
+      allSlides.forEach(s => {
+        s.classList.remove('show', 'active', 'left', 'right');
+        if (s.dataset.cat === cat) {
+          s.classList.add('show');
+        }
+      });
+
+      dots.innerHTML = '';
+
+      visible.forEach((_, i) => {
+        const d = document.createElement('div');
+        d.className = 'dot' + (i === 0? ' active' : '');
+        d.onclick = () => goTo(i);
+        dots.appendChild(d);
+      });
+
+      current = 0;
+
+      setTimeout(() => {
+        if (visible[0]) {
+          visible[0].scrollIntoView({ behavior: 'smooth', inline: 'center' });
+        }
+        update();
+      }, 80);
+    }
+
+    function update() {
+      if (!visible.length) return;
+
+      const center = gallery.scrollLeft + gallery.clientWidth / 2;
+      let closest = 0;
+      let min = Infinity;
+
+      visible.forEach((s, i) => {
+        const c = s.offsetLeft + s.offsetWidth / 2;
+        const d = Math.abs(center - c);
+        if (d < min) {
+          min = d;
+          closest = i;
+        }
+      });
+
+      current = closest;
+
+      visible.forEach((s, i) => {
+        s.classList.remove('active', 'left', 'right');
+        if (i === current) s.classList.add('active');
+        else if (i < current) s.classList.add('left');
+        else s.classList.add('right');
+      });
+
+      [...dots.children].forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    function goTo(i) {
+      visible[i].scrollIntoView({ behavior: 'smooth', inline: 'center' });
+    }
+
+    btns.forEach(b => {
+      b.onclick = () => {
+        btns.forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        showCategory(b.dataset.cat);
+      }
+    });
+
+    gallery.addEventListener('scroll', () => {
+      requestAnimationFrame(update);
+    });
+
+    showCategory('weapons');
+  </script>
+</body>
+</html>
